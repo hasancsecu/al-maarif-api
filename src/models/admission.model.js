@@ -12,6 +12,7 @@ const admissionSchema = mongoose.Schema(
     course: { type: String, required: true },
     classType: { type: String, required: true },
     preferredTime: { type: String, required: true },
+    status: { type: String, enum: ['pending', 'acknowledged', 'approved', 'rejected'], default: 'pending' },
     comments: { type: String },
   },
   { timestamps: true }
