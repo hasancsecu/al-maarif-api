@@ -31,10 +31,22 @@ const getContacts = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getAdmissionById = catchAsync(async (req, res) => {
+  const result = await admissionService.getAdmissionById(req.params.id);
+  res.send(result);
+});
+
+const getContactById = catchAsync(async (req, res) => {
+  const result = await contactService.getContactById(req.params.id);
+  res.send(result);
+});
+
 module.exports = {
   index,
   createAdmission,
   createContact,
   getAdmissions,
   getContacts,
+  getAdmissionById,
+  getContactById,
 };

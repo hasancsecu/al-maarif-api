@@ -1,4 +1,6 @@
+const httpStatus = require('http-status');
 const Admission = require('../models/admission.model');
+const ApiError = require('../utils/ApiError');
 
 /**
  * Create a new admission
@@ -24,7 +26,21 @@ const queryAdmissions = async (filter, options) => {
   return admissions;
 };
 
+/**
+ * Get admission by id
+ * @param {ObjectId} id
+ * @returns {Promise<Admission>}
+ */
+const getAdmissionById = async (id) => {
+  const admission = await Admission.findById(id);
+  if (!admission) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Admission not found');
+  }
+  return admission;
+};
+
 module.exports = {
   createAdmission,
   queryAdmissions,
+  getAdmissionById,
 };

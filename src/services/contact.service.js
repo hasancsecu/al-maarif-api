@@ -1,4 +1,6 @@
+const httpStatus = require('http-status');
 const Contact = require('../models/contact.model');
+const ApiError = require('../utils/ApiError');
 
 /**
  * Create a new contact
@@ -24,7 +26,21 @@ const queryContacts = async (filter, options) => {
   return contacts;
 };
 
+/**
+ * Get contact by id
+ * @param {ObjectId} id
+ * @returns {Promise<Contact>}
+ */
+const getContactById = async (id) => {
+  const contact = await Contact.findById(id);
+  if (!contact) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Contact not found');
+  }
+  return contact;
+};
+
 module.exports = {
   createContact,
   queryContacts,
+  getContactById,
 };
